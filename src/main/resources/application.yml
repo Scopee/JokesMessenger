@@ -7,5 +7,16 @@ spring:
   mvc:
     format:
       date: yyyy-MM-dd
+  datasource:
+    url: ${POSTGRES_JDBC_URL:}
+    username: ${POSTGRES_JDBC_USERNAME:}
+    password: ${POSTGRES_JDBC_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    default-schema: ${POSTGRES_SCHEMA:jokes_messenger}
+    change-log: classpath:/liquibase/master.yml
+    database-change-log-table: _databasechangelog
+    database-change-log-lock-table: _databasechangeloglock
+
 server:
   port: ${SERVER_PORT:8080}
