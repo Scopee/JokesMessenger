@@ -15,10 +15,10 @@ public interface MessagesApi {
     List<GetMessageRequest> getMessages(@RequestParam UUID userId, @RequestParam Integer offset, @RequestParam Integer limit);
 
     @Operation(summary = "Mark message as read")
-    @GetMapping("/{messageId}")
+    @PutMapping("/{messageId}")
     void markAsRead(@PathVariable UUID messageId);
 
     @Operation(summary = "Send message")
-    @GetMapping
+    @PostMapping
     void sendMessage(@RequestBody SendMessageRequest message);
 }
