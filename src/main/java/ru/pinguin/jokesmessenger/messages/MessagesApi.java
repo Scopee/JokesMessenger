@@ -11,12 +11,12 @@ public interface MessagesApi {
     String MESSAGES_API = "api/v1/messages";
 
     @Operation(summary = "Get messages by destination user id")
-    @GetMapping("/{userId}")
-    List<GetMessageRequest> getMessages(@PathVariable UUID userId, @RequestParam Integer offset, @RequestParam Integer limit);
+    @GetMapping
+    List<GetMessageRequest> getMessages(@RequestParam UUID userId, @RequestParam Integer offset, @RequestParam Integer limit);
 
     @Operation(summary = "Mark message as read")
     @GetMapping("/{messageId}")
-    void markAsRead(UUID messageId);
+    void markAsRead(@PathVariable UUID messageId);
 
     @Operation(summary = "Send message")
     @GetMapping
