@@ -71,4 +71,9 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="0.0.0-3" author="scope">
+        <renameColumn tableName="friends" oldColumnName="from" newColumnName="user_from"/>
+        <renameColumn tableName="friends" oldColumnName="to" newColumnName="user_to"/>
+    </changeSet>
 </databaseChangeLog>
