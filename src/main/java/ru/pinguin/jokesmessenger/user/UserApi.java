@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.pinguin.jokesmessenger.data.User;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 
 @RequestMapping(UserApi.USER_API)
+@Tag(name = "User Api")
 public interface UserApi {
     String USER_API = "/api/v1/user";
 

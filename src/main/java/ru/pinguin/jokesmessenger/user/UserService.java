@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pinguin.jokesmessenger.data.User;
 import ru.pinguin.jokesmessenger.exceptions.NotFoundException;
-import ru.pinguin.jokesmessenger.exceptions.UserAlreadyExistsException;
+import ru.pinguin.jokesmessenger.exceptions.AlreadyExistsException;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -32,7 +32,7 @@ public class UserService {
 
     public UserRequest createUser(UserRequest userRequest) throws Exception {
         if (repository.existsById(userRequest.getUuid()))
-            throw new UserAlreadyExistsException();
+            throw new AlreadyExistsException("User already exists");
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setNickname(userRequest.getNickname());

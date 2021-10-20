@@ -3,6 +3,8 @@ package ru.pinguin.jokesmessenger.friends;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pinguin.jokesmessenger.data.Friend;
+import ru.pinguin.jokesmessenger.exceptions.AlreadyExistsException;
+import ru.pinguin.jokesmessenger.exceptions.NotFoundException;
 import ru.pinguin.jokesmessenger.friends.dto.FriendItem;
 import ru.pinguin.jokesmessenger.friends.dto.FriendRequestItem;
 import ru.pinguin.jokesmessenger.friends.dto.FriendRequestStatus;
@@ -24,7 +26,7 @@ public class FriendsService {
     public void createFriendRequest(UUID userFrom, UUID userTo) throws Exception {
         Optional<Friend> byIds = repository.findByIds(userFrom, userTo);
         if (byIds.isPresent()) {
-            throw new Exception();
+            throw new AlreadyExistsException("Friend request already exists");
         }
         Friend f = new Friend();
         f.setId(UUID.randomUUID());
@@ -35,11 +37,17 @@ public class FriendsService {
         repository.persist(f);
     }
 
-    public List<FriendItem> getFriends(UUID userId) {
+    public List<FriendItem> getFriends(UUID userId) throws NotFoundException {
+        if(!repository.existsById(userId)) {
+            throw new NotFoundException("User not found");
+        }
         return repository.getFriendList(userId);
     }
 
-    public List<FriendRequestItem> getFriendRequests(UUID userId) {
+    public List<FriendRequestItem> getFriendRequests(UUID userId) throws NotFoundException {
+        if(!repository.existsById(userId)) {
+            throw new NotFoundException("User not found");
+        }
         return repository.getRequests(userId);
     }
 

@@ -1,5 +1,6 @@
 package ru.pinguin.jokesmessenger.friends.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class FriendRequestItem extends FriendItem {
         this.requestTime = requestTime;
     }
 
+    @Schema(description = "Create date time of request")
     private LocalDateTime requestTime;
 
 }

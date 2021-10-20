@@ -28,6 +28,13 @@ public class FriendsRepository {
         em.persist(friend);
     }
 
+    public boolean existsById(UUID id) {
+        String q = """
+                select count(f) from Friend f where f.id=:id
+                """;
+        return em.createQuery(q, Long.class).setParameter("id", id).getSingleResult() >= 1;
+    }
+
     public Optional<Friend> findByIds(UUID userFrom, UUID userTo) {
         String q = """
                 select f from Friend f where f.from =:userFrom and f.to =:userTo

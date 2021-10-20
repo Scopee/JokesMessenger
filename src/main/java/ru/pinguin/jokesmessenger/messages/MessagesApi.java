@@ -1,12 +1,14 @@
 package ru.pinguin.jokesmessenger.messages;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RequestMapping(MessagesApi.MESSAGES_API)
+@Tag(name = "Messages Api")
 public interface MessagesApi {
     String MESSAGES_API = "api/v1/messages";
 

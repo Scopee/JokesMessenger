@@ -2,6 +2,7 @@ package ru.pinguin.jokesmessenger.friends;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
+import ru.pinguin.jokesmessenger.exceptions.NotFoundException;
 import ru.pinguin.jokesmessenger.friends.dto.FriendItem;
 import ru.pinguin.jokesmessenger.friends.dto.FriendRequestItem;
 import ru.pinguin.jokesmessenger.friends.dto.FriendRequestStatus;
@@ -24,12 +25,12 @@ public class FriendsController implements FriendsApi {
     }
 
     @Override
-    public List<FriendItem> getFriends(UUID userId) {
+    public List<FriendItem> getFriends(UUID userId) throws NotFoundException {
         return service.getFriends(userId);
     }
 
     @Override
-    public List<FriendRequestItem> getFriendRequests(UUID userId) {
+    public List<FriendRequestItem> getFriendRequests(UUID userId) throws NotFoundException {
         return service.getFriendRequests(userId);
     }
 
