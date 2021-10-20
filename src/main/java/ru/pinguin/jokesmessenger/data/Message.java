@@ -22,8 +22,10 @@ public class Message {
     @Id
     private UUID id;
 
+    @Column(name = "user_from")
     private UUID from;
 
+    @Column(name = "user_to")
     private UUID to;
 
     private String message;
