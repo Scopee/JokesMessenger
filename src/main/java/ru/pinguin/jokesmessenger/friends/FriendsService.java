@@ -51,8 +51,8 @@ public class FriendsService {
         return repository.getRequests(userId);
     }
 
-    public void responseToRequest(UUID userFrom, UUID userTo, FriendRequestStatus status) {
-        repository.responseToRequest(userFrom, userTo, status.isAccepted());
+    public void responseToRequest(UUID reqeustId, FriendRequestStatus status) {
+        repository.responseToRequest(reqeustId, status.isAccepted());
     }
 
 }

@@ -15,10 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class FriendItem {
 
-    @Schema(description = "Id of friend")
+    @Schema(description = "Id of friend", example = "123e4567-e89b-42d3-a456-556642440000")
     private UUID friendId;
 
-    @Schema(description = "Friend's username")
+    @Schema(description = "Friend's username", example = "testuser")
     private String username;
 
 }

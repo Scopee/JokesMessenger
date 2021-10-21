@@ -35,14 +35,14 @@ public interface UserApi {
                     content = @Content) })
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void  updateUser(@PathVariable final UUID id, @RequestBody final UserRequest user);
+    void  updateUser(@PathVariable final UUID id, @RequestBody final UserRequest user) throws Exception;
 
     @Operation(summary = "Create user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Create the user"),
             @ApiResponse(responseCode = "404", description = "User already exists",
                     content = @Content) })
-    @PostMapping("/{id}/{nickname}")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.OK)
     UserRequest createUser(@RequestBody final UserRequest user) throws Exception;
 }

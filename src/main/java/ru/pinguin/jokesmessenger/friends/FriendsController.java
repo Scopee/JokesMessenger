@@ -35,7 +35,7 @@ public class FriendsController implements FriendsApi {
     }
 
     @Override
-    public void responseToRequest(UUID userFrom, UUID userTo, FriendRequestStatus status) {
-        service.responseToRequest(userFrom, userTo, status);
+    public void responseToRequest(UUID requestId, FriendRequestStatus status) {
+        service.responseToRequest(requestId, status);
     }
 }

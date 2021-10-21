@@ -30,7 +30,7 @@ public class FriendsRepository {
 
     public boolean existsById(UUID id) {
         String q = """
-                select count(f) from Friend f where f.id=:id
+                select count(u) from User u where u.id=:id
                 """;
         return em.createQuery(q, Long.class).setParameter("id", id).getSingleResult() >= 1;
     }
@@ -45,7 +45,7 @@ public class FriendsRepository {
     public List<FriendItem> getFriendList(UUID userId) {
         String q1 = """
                 select new ru.pinguin.jokesmessenger.friends.dto.FriendItem(f.to, u.nickname) from Friend f
-                left join User u on u.id = f.from
+                left join User u on u.id = f.to
                 where f.from = :userId
                 and f.isAccepted = true
                  """;
@@ -63,7 +63,7 @@ public class FriendsRepository {
 
     public List<FriendRequestItem> getRequests(UUID userTo) {
         String q = """
-                select new ru.pinguin.jokesmessenger.friends.dto.FriendRequestItem(f.from, u.nickname, f.dateTime) from Friend f 
+                select new ru.pinguin.jokesmessenger.friends.dto.FriendRequestItem(f.from, u.nickname, f.id, f.dateTime) from Friend f 
                 left join User u on u.id = f.from
                 where f.to = :userId
                 and f.isAccepted = false 
@@ -72,11 +72,11 @@ public class FriendsRepository {
     }
 
     @Transactional
-    public void responseToRequest(UUID userFrom, UUID userTo, boolean accepted) {
+    public void responseToRequest(UUID requestIq, boolean accepted) {
         String q = """
-                update Friend f set f.isAccepted = :accepted where f.from = :userFrom and f.to = :userTo
-                """;
+                   update Friend f set f.isAccepted = :accepted where f.id =:id
+                   """;
 
-        em.createQuery(q).setParameter("accepted", accepted).setParameter("userFrom", userFrom).setParameter("userTo", userTo).executeUpdate();
+        em.createQuery(q).setParameter("accepted", accepted).setParameter("id", requestIq).executeUpdate();
     }
 }

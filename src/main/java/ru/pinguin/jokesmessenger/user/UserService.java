@@ -23,22 +23,22 @@ public class UserService {
         return repository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
-    public void updateUser(UUID id, final UserRequest userRequest) {
-        repository.deleteById(id);
-        User user = new User();
+    public void updateUser(UUID id, final UserRequest userRequest) throws Exception {
+        User user = getUser(id);
         user.setNickname(userRequest.getNickname());
         repository.save(user);
     }
 
-    public UserRequest createUser(UserRequest userRequest) throws Exception {
-        if (repository.existsById(userRequest.getUuid()))
-            throw new AlreadyExistsException("User already exists");
+    public UserResponse createUser(UserRequest userRequest) throws Exception {
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setNickname(userRequest.getNickname());
         user.setRegistrationDateTime(LocalDateTime.now());
         user.setLastOnline(LocalDateTime.now());
         repository.save(user);
-        return userRequest;
+        UserResponse response = new UserResponse();
+        response.setNickname(userRequest.getNickname());
+        response.setUuid(user.getId());
+        return response;
     }
 }

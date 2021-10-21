@@ -35,8 +35,7 @@ public interface FriendsApi {
 
     @PutMapping("/response")
     @Operation(summary = "Reply to friend request")
-    void responseToRequest(@RequestParam @Schema(description = "Id of request sender user", example = "123e4567-e89b-42d3-a456-556642440000") UUID userFrom,
-                           @RequestParam @Schema(description = "Id of request receiver user", example = "123e4567-e89b-42d3-a456-556642440000") UUID userTo,
+    void responseToRequest(@RequestParam @Schema(description = "Id of request", example = "123e4567-e89b-42d3-a456-556642440000") UUID requestId,
                            @RequestParam @Schema(description = "Response", example = "ACCEPT") FriendRequestStatus status);
 
 }
