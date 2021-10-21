@@ -17,6 +17,7 @@ spring:
     change-log: classpath:/liquibase/master.yml
     database-change-log-table: _databasechangelog
     database-change-log-lock-table: _databasechangeloglock
-
+  jpa:
+    show-sql: true
 server:
   port: ${SERVER_PORT:8080}

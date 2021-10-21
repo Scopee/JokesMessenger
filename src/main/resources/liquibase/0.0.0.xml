@@ -72,6 +72,11 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="0.0.0-3" author="scope">
+        <renameColumn tableName="friends" oldColumnName="from" newColumnName="user_from"/>
+        <renameColumn tableName="friends" oldColumnName="to" newColumnName="user_to"/>
+    </changeSet>
+
     <changeSet id="0.0.0-4" author="jazzmutant">
         <renameColumn tableName="message" oldColumnName="from" newColumnName="user_from"/>
         <renameColumn tableName="message" oldColumnName="to" newColumnName="user_to"/>

@@ -26,7 +26,7 @@ public class MessagesRepository {
 
     public List<Message> getMessages(UUID id, int offset, int limit) {
         String q = """
-                select m from Message m where m.id = :id
+                select m from Message m where m.from = :id or m.to = :id
                 """;
         return em.createQuery(q, Message.class).setParameter("id", id).setFirstResult(offset).setMaxResults(limit).getResultList();
     }

@@ -23,12 +23,12 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public void updateUser(UUID id, UserRequest user) {
+    public void updateUser(UUID id, UserRequest user) throws Exception {
         userService.updateUser(id, user);
     }
 
     @Override
-    public UserRequest createUser(UserRequest user) throws Exception {
+    public UserResponse createUser(UserRequest user) throws Exception {
         return userService.createUser(user);
     }
 
