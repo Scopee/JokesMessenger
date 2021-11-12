@@ -2,11 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>auth</module>
+        <module>messenger</module>
+        <module>common</module>
+    </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.pinguin</groupId>
     <artifactId>jokes-messenger</artifactId>
@@ -17,6 +22,8 @@
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
         <zalando.version>0.25.0</zalando.version>
+        <spring.boot.version>2.5.5</spring.boot.version>
+        <spring.boot.security.jwt.version>1.1.1.RELEASE</spring.boot.security.jwt.version>
     </properties>
 
     <dependencies>
@@ -46,11 +53,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.5.2</version>
@@ -62,20 +64,49 @@
             <version>${zalando.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+            <version>${spring.boot.security.jwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-jose</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-resource-server</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
+                    <source>16</source>
+                    <target>16</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                            <version>${spring.boot.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

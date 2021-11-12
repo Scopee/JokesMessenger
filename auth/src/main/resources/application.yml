@@ -1,0 +1,31 @@
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) [%t] %clr(%-40.40logger{39}){cyan} {%X} %clr(:){faint} %m%n%wEx"
+spring:
+  application:
+    name: jokes-messenger
+  mvc:
+    format:
+      date: yyyy-MM-dd
+  datasource:
+    url: ${POSTGRES_JDBC_URL:}
+    username: ${POSTGRES_JDBC_USERNAME:}
+    password: ${POSTGRES_JDBC_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate.default_schema: ${POSTGRES_SCHEMA:jokes_messenger}
+server:
+  port: ${SERVER_PORT:8080}
+security:
+  secret: ${HMAC_SECRET:}
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      authorized-grant-types: [ "password" ]
+      scope: [ "data" ]
+      access-token-validity-seconds: ${TOKEN_VALIDITY_SEC:43200}
+    authorization:
+      token-key-access: permitAll()
+      check-token-access: permitAll()
