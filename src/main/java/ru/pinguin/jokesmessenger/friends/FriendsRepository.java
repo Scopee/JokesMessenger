@@ -10,7 +10,6 @@ import ru.pinguin.jokesmessenger.friends.dto.FriendRequestItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -35,11 +34,14 @@ public class FriendsRepository {
         return em.createQuery(q, Long.class).setParameter("id", id).getSingleResult() >= 1;
     }
 
-    public Optional<Friend> findByIds(UUID userFrom, UUID userTo) {
+    public boolean existsByIds(UUID userFrom, UUID userTo) {
         String q = """
-                select f from Friend f where f.from =:userFrom and f.to =:userTo
-                """;
-        return em.createQuery(q, Friend.class).setParameter("userFrom", userFrom).setParameter("userTo", userTo).getResultList().stream().findFirst();
+                   select count(f.id) from Friend f where (f.from =:userFrom and f.to =:userTo) or (f.to=:userFrom and f.from =:userTo)
+                   """;
+        return em.createQuery(q, Long.class)
+                 .setParameter("userFrom", userFrom)
+                 .setParameter("userTo", userTo)
+                 .getSingleResult() > 0;
     }
 
     public List<FriendItem> getFriendList(UUID userId) {

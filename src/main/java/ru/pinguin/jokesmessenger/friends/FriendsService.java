@@ -24,8 +24,7 @@ public class FriendsService {
     private final FriendsRepository repository;
 
     public void createFriendRequest(UUID userFrom, UUID userTo) throws Exception {
-        Optional<Friend> byIds = repository.findByIds(userFrom, userTo);
-        if (byIds.isPresent()) {
+        if (repository.existsByIds(userFrom, userTo)) {
             throw new AlreadyExistsException("Friend request already exists");
         }
         Friend f = new Friend();

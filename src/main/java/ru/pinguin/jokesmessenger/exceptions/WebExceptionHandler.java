@@ -25,7 +25,7 @@ public class WebExceptionHandler implements IExceptionHandler, ProblemHandling {
     @ExceptionHandler({AlreadyExistsException.class})
     protected ResponseEntity<Problem> handleException(AlreadyExistsException ex, NativeWebRequest request) {
         log.debug(ex.getMessage(), ex);
-        return create(Status.CONFLICT, ex, "User already registered", request);
+        return create(Status.CONFLICT, ex, "Already exists", request);
     }
 
 }
