@@ -7,8 +7,6 @@ import java.util.UUID;
 
 @Data
 public class SendMessageRequest {
-    @Schema(description = "Sender user id", example = "123e4567-e89b-42d3-a456-556642440000")
-    private UUID from;
 
     @Schema(description = "Receiver user id", example = "123e4567-e89b-42d3-a456-556642440000")
     private UUID to;

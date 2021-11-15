@@ -15,6 +15,7 @@ public class CustomUserAuthenticationConverter extends DefaultUserAuthentication
         Map<String, Object> map = (Map<String, Object>) super.convertUserAuthentication(authentication);
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         map.put("role", principal.getRole());
+        map.put("user_id", principal.getUserId());
         return map;
     }
 }

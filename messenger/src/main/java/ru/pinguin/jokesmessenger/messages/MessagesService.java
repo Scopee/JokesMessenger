@@ -1,5 +1,6 @@
 package ru.pinguin.jokesmessenger.messages;
 
+import liquibase.pro.packaged.U;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pinguin.jokesmessenger.data.Message;
@@ -21,8 +22,8 @@ public class MessagesService {
         messagesRepository.markAsRead(messageId);
     }
 
-    public void sendMessage(SendMessageRequest message) {
-        messagesRepository.persist(convertToMessage(message));
+    public void sendMessage(UUID userId, SendMessageRequest message) {
+        messagesRepository.persist(convertToMessage(userId, message));
     }
 
     private GetMessageRequest convertToRequest(Message message) {
@@ -35,10 +36,10 @@ public class MessagesService {
         return messageRequest;
     }
 
-    private Message convertToMessage(SendMessageRequest messageRequest) {
+    private Message convertToMessage(UUID userId, SendMessageRequest messageRequest) {
         Message message = new Message();
         message.setId(UUID.randomUUID());
-        message.setFrom(messageRequest.getFrom());
+        message.setFrom(userId);
         message.setTo(messageRequest.getTo());
         message.setMessage(messageRequest.getMessage());
         message.setSentDate(LocalDateTime.now());

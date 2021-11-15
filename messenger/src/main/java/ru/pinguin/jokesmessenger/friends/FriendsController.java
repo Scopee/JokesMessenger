@@ -6,6 +6,7 @@ import ru.pinguin.jokesmessenger.common.exceptions.NotFoundException;
 import ru.pinguin.jokesmessenger.friends.dto.FriendItem;
 import ru.pinguin.jokesmessenger.friends.dto.FriendRequestItem;
 import ru.pinguin.jokesmessenger.friends.dto.FriendRequestStatus;
+import ru.pinguin.jokesmessenger.security.UserPrincipal;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,22 +21,22 @@ public class FriendsController implements FriendsApi {
     private final FriendsService service;
 
     @Override
-    public void createFriendRequest(UUID userFrom, UUID userTo) throws Exception {
-        service.createFriendRequest(userFrom, userTo);
+    public void createFriendRequest(UserPrincipal principal, UUID userTo) throws Exception {
+        service.createFriendRequest(principal.getUserId(), userTo);
     }
 
     @Override
-    public List<FriendItem> getFriends(UUID userId) throws NotFoundException {
-        return service.getFriends(userId);
+    public List<FriendItem> getFriends(UserPrincipal principal) throws NotFoundException {
+        return service.getFriends(principal.getUserId());
     }
 
     @Override
-    public List<FriendRequestItem> getFriendRequests(UUID userId) throws NotFoundException {
-        return service.getFriendRequests(userId);
+    public List<FriendRequestItem> getFriendRequests(UserPrincipal principal) throws NotFoundException {
+        return service.getFriendRequests(principal.getUserId());
     }
 
     @Override
-    public void responseToRequest(UUID requestId, FriendRequestStatus status) {
+    public void responseToRequest(UserPrincipal principal, UUID requestId, FriendRequestStatus status) {
         service.responseToRequest(requestId, status);
     }
 }
