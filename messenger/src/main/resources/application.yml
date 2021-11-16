@@ -1,0 +1,28 @@
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) [%t] %clr(%-40.40logger{39}){cyan} {%X} %clr(:){faint} %m%n%wEx"
+spring:
+  application:
+    name: jokes-messenger
+  mvc:
+    format:
+      date: yyyy-MM-dd
+  datasource:
+    url: ${POSTGRES_JDBC_URL:}
+    username: ${POSTGRES_JDBC_USERNAME:}
+    password: ${POSTGRES_JDBC_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    default-schema: ${POSTGRES_SCHEMA:jokes_messenger}
+    change-log: classpath:/liquibase/master.yml
+    database-change-log-table: _databasechangelog
+    database-change-log-lock-table: _databasechangeloglock
+  jpa:
+    show-sql: true
+server:
+  port: ${SERVER_PORT:8080}
+auth:
+  token-url: ${TOKEN_URL:}
+  auth-server-url: ${AUTH_SERVER_URL:}
+  client: ${AUTH_CLIENT:client}
+  secret: ${AUTH_SECRET:secret}
