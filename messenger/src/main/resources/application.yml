@@ -26,3 +26,9 @@ auth:
   auth-server-url: ${AUTH_SERVER_URL:}
   client: ${AUTH_CLIENT:client}
   secret: ${AUTH_SECRET:secret}
+jokes:
+  threshold: ${JOKES_THRESHOLD:10}
+elastic:
+  url: ${ELASTIC_URL:}
+  username: ${ELASTIC_USERNAME:}
+  password: ${ELASTIC_PASSWORD:}

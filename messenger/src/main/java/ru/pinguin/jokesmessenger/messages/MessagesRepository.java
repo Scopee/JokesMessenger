@@ -17,7 +17,6 @@ public class MessagesRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    @Transactional
     public void persist(Message message) {
         em.persist(message);
     }
