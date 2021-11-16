@@ -96,4 +96,8 @@
     <changeSet id="0.0.0-6" author="scope">
         <modifyDataType tableName="users" columnName="nickname" newDataType="varchar"/>
     </changeSet>
+
+    <changeSet id="0.0.0-7" author="jazzmutant">
+        <modifyDataType tableName="message" columnName="message" newDataType="text"/>
+    </changeSet>
 </databaseChangeLog>

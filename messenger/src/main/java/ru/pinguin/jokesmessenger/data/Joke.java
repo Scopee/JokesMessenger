@@ -10,7 +10,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Getter
 @Setter
-@Document(indexName = "joke", type = "text")
+@Document(indexName = "jokes-index")
 public class Joke {
     @Id
     private String id;

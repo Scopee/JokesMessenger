@@ -1,32 +1,39 @@
 package ru.pinguin.jokesmessenger.config;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
+import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "ru.pinguin.jokesmessenger.elastic")
-@ComponentScan(basePackages = { "com.baeldung.spring.data.es.service" })
-public class ElasticConfig {
+@EnableConfigurationProperties(ElasticProperties.class)
+@RequiredArgsConstructor
+public class ElasticConfig extends AbstractElasticsearchConfiguration {
 
-    @Bean
-    public RestHighLevelClient client() {
-        ClientConfiguration clientConfiguration
-                = ClientConfiguration.builder()
-                .connectedTo("localhost:9200")
-                .build();
+    private final ElasticProperties properties;
 
-        return RestClients.create(clientConfiguration).rest();
-    }
+    @Override
+    public RestHighLevelClient elasticsearchClient() {
+        String url = properties.getUrl();
+        String username = properties.getUsername();
+        String password = properties.getPassword();
 
-    @Bean
-    public ElasticsearchOperations elasticsearchTemplate() {
-        return new ElasticsearchRestTemplate(client());
+        ClientConfiguration configuration;
+        if (!StringUtils.isEmpty(username)) {
+            configuration = ClientConfiguration.builder().connectedTo(url).withBasicAuth(username, password).build();
+        } else {
+            configuration = ClientConfiguration.builder().connectedTo(url).build();
+        }
+        return RestClients.create(configuration).rest();
     }
 }

@@ -6,13 +6,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "auth")
+@ConfigurationProperties(prefix = "elastic")
 public class ElasticProperties {
 
-    private String tokenUrl;
+    private String url;
 
     private String username;
 
-    private String passsword;
+    private String password;
 
 }
