@@ -58,7 +58,7 @@ public class MessagesService {
     private String getJoke(String message){
         for (String word: Arrays.stream(message.split(" ")).sorted(Comparator.comparingInt(String::length)).toList()){
             String joke = "";
-            // elastic.getJokeOrNull(word);
+            //elastic.getJokeOrNull(word);
             if (joke != null){
                 return joke;
             }
